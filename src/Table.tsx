@@ -1,6 +1,8 @@
-import { Employee, EmployeeStatus } from "./App";
+import { useNavigate } from 'react-router-dom';
+import { Employee, EmployeeStatus } from './App';
 
 export function Table(props: { data: Employee[] }) {
+  const navigate = useNavigate();
   const renderStatus = (status: EmployeeStatus): string => {
     switch(status) {
         case "SICK_LEAVE":
@@ -10,6 +12,12 @@ export function Table(props: { data: Employee[] }) {
         default:
             return '﹖';    
     }
+  }
+
+  const handleRowClick = (event: React.MouseEvent, item: Employee): void => {
+    event.preventDefault();
+
+    navigate("/details", { state: item });
   }
 
   return (
@@ -26,7 +34,7 @@ export function Table(props: { data: Employee[] }) {
         </thead>
         <tbody>
           {props.data.map((item) => (
-            <tr>
+            <tr onClick={(event) => handleRowClick(event, item)}>
               <td>{item.id}</td>
               <td>{item.firstname}</td>
               <td>{item.lastname}</td>
