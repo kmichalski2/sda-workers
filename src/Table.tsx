@@ -14,7 +14,7 @@ export function Table(props: { data: Employee[] }) {
 
   return (
     <>
-      <table>
+      <table className="table table-striped">
         <thead>
           <tr>
             <th>ID</th>
