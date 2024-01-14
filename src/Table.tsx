@@ -1,7 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { Employee, EmployeeStatus } from './App';
+import React, { useState } from 'react';
 
 export function Table(props: { data: Employee[] }) {
+  const [filteredData, setFilteredData] = useState(props.data);
   const navigate = useNavigate();
   const renderStatus = (status: EmployeeStatus): string => {
     switch(status) {
@@ -20,8 +22,23 @@ export function Table(props: { data: Employee[] }) {
     navigate("/details", { state: item });
   }
 
+  const handleSearchType = (event: React.KeyboardEvent): void => {
+    const input = event.target as HTMLInputElement;
+    const phrase = input.value.toLowerCase();
+
+    const data = props.data.filter(item => {
+        return item.lastname.toLowerCase().includes(phrase) 
+        || item.firstname.toLowerCase().includes(phrase)}
+        );
+    setFilteredData(data);
+  }
+
   return (
     <>
+      <div className="mb-3">
+        <input onKeyUp={handleSearchType} placeholder="Type any employee data..." type="search" className="form-control" />
+      </div>
+
       <table className="table table-striped">
         <thead>
           <tr>
@@ -33,7 +50,7 @@ export function Table(props: { data: Employee[] }) {
           </tr>
         </thead>
         <tbody>
-          {props.data.map((item) => (
+          {filteredData.map((item) => (
             <tr className="clickable" key={item.id} onClick={(event) => handleRowClick(event, item)}>
               <td>{item.id}</td>
               <td>{item.firstname}</td>
