@@ -34,7 +34,7 @@ export function Table(props: { data: Employee[] }) {
         </thead>
         <tbody>
           {props.data.map((item) => (
-            <tr onClick={(event) => handleRowClick(event, item)}>
+            <tr className="clickable" key={item.id} onClick={(event) => handleRowClick(event, item)}>
               <td>{item.id}</td>
               <td>{item.firstname}</td>
               <td>{item.lastname}</td>
