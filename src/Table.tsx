@@ -28,7 +28,9 @@ export function Table(props: { data: Employee[] }) {
 
     const data = props.data.filter(item => {
         return item.lastname.toLowerCase().includes(phrase) 
-        || item.firstname.toLowerCase().includes(phrase)}
+        || item.firstname.toLowerCase().includes(phrase)
+        || item.phonenumber.includes(phrase)
+    }
         );
     setFilteredData(data);
   }
