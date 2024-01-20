@@ -1,19 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
+import HomePage from "./pages/HomePage.tsx";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Details } from "./Details.tsx";
+import { DetailsPage } from "./pages/DetailsPage.tsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <HomePage />,
   },
   {
     path: "/details",
-    element: <Details />,
+    element: <DetailsPage />,
   },
 ]);
 

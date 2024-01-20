@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
-import { Employee } from "./App";
+import { Employee } from "./HomePage";
 
-export function Details() {
+export function DetailsPage() {
   const location = useLocation();
   const data: Employee = location.state;
 
