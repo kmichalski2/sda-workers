@@ -5,6 +5,8 @@ import React, { useState } from 'react';
 export function Table(props: { data: Employee[] }) {
   const [filteredData, setFilteredData] = useState(props.data);
   const [sortDirection, setSortDirection] = useState('none');
+  const [sortBy, setSortBy] = useState<null | keyof Employee>(null);
+
 
   const navigate = useNavigate();
   const renderStatus = (status: EmployeeStatus): string => {
@@ -81,11 +83,18 @@ export function Table(props: { data: Employee[] }) {
   const handleHeaderColumnClick = (event: React.MouseEvent, key: keyof Employee): void => {
       event.preventDefault();
       let sortedData = [...filteredData];
+      let tempSortDirection = sortDirection;
 
-      if (sortDirection === 'none') {
+      if (key !== sortBy) {
+        tempSortDirection = 'none';
+      }
+
+      setSortBy(key);
+
+      if (tempSortDirection === 'none') {
         setSortDirection('asc');
         sortedData = sortedData.sort((a,b) => sortAsc(a, b, key)); 
-      } else if (sortDirection === 'asc') {
+      } else if (tempSortDirection === 'asc') {
         setSortDirection('desc');
        sortedData = sortedData.sort((a, b) => sortDesc(a, b, key));
       } else {
@@ -94,6 +103,20 @@ export function Table(props: { data: Employee[] }) {
       }
 
       setFilteredData([...sortedData]);
+  }
+
+  const renderSortIcon = (key: keyof Employee): string => {
+    if (key === sortBy) {
+      switch (sortDirection) {
+        case 'asc':
+          return '⬇️';
+        case 'desc':
+          return '⬆️';
+        default:
+          return ''
+      }
+    }
+    return '';
   }
 
   return (
@@ -105,11 +128,11 @@ export function Table(props: { data: Employee[] }) {
       <table className="table table-striped">
         <thead>
           <tr>
-            <th className="clickable" onClick={(event) => handleHeaderColumnClick(event, "id")}>ID</th>
-            <th className="clickable" onClick={(event) => handleHeaderColumnClick(event, "firstname")}>Firstname</th>
-            <th className="clickable" onClick={(event) => handleHeaderColumnClick(event, "lastname")}>Lastname</th>
-            <th className="clickable" onClick={(event) => handleHeaderColumnClick(event, "salary")}>Salary</th>
-            <th className="clickable" onClick={(event) => handleHeaderColumnClick(event, "status")}>Status</th>
+            <th className="clickable" onClick={(event) => handleHeaderColumnClick(event, "id")}>ID {renderSortIcon("id")}</th>
+            <th className="clickable" onClick={(event) => handleHeaderColumnClick(event, "firstname")}>Firstname {renderSortIcon("firstname")}</th>
+            <th className="clickable" onClick={(event) => handleHeaderColumnClick(event, "lastname")}>Lastname {renderSortIcon("lastname")}</th>
+            <th className="clickable" onClick={(event) => handleHeaderColumnClick(event, "salary")}>Salary {renderSortIcon("salary")}</th>
+            <th className="clickable" onClick={(event) => handleHeaderColumnClick(event, "status")}>Status {renderSortIcon("status")}</th>
           </tr>
         </thead>
         <tbody>
