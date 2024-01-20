@@ -1,8 +1,10 @@
 import { useLocation } from "react-router-dom";
-import { Employee } from "./App";
+import { Employee } from "./HomePage";
 
-export function Details() {
+export function DetailsPage() {
   const location = useLocation();
+
+  // TODO: Improve loading of employee in case it is not passed
   const data: Employee = location.state;
 
   return (

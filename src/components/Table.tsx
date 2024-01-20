@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Employee, EmployeeStatus } from './App';
+import { Employee, EmployeeStatus } from '../pages/HomePage';
 import React, { useState } from 'react';
 
 export function Table(props: { data: Employee[] }) {

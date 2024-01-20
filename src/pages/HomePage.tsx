@@ -1,6 +1,7 @@
 import { useState } from "react";
-import "./App.css";
-import { Table } from "./Table";
+import "./HomePage.css";
+import { Table } from "../components/Table";
+import { Link } from "react-router-dom";
 
 
 export interface Employee {
@@ -46,15 +47,20 @@ export const mockData: Employee[] = [
   }
 ]
 
-function App() {
+function HomePage() {
   const [data] = useState(mockData);
 
   return (
     <>
-        <h1>Workers</h1>
+        <header className="d-flex justify-content-between mb-2">
+          <h1>Employees</h1>
+          <Link className="btn btn-success" to={'add'}>Add</Link>
+        </header>
+        
+
         <Table data={data}></Table>
     </>
   );
 }
 
-export default App;
+export default HomePage;
