@@ -22,14 +22,31 @@ export function Table(props: { data: Employee[] }) {
     navigate("/details", { state: item });
   }
 
+  const findByPhrase = (columns: string[], item: { [key: string]: string}, phrase: string): boolean => {
+    let result = false;  
+    columns.forEach(key => {
+        const field = item[key];
+        if (field.toLowerCase().includes(phrase)) {
+          result = true;
+          return;
+        }
+      });
+      return result;
+  }
+
   const handleSearchType = (event: React.KeyboardEvent): void => {
     const input = event.target as HTMLInputElement;
     const phrase = input.value.toLowerCase();
+    const columns = ['lastname', 'firstname', 'phonenumber', 'address'];
 
     const data = props.data.filter(item => {
-        return item.lastname.toLowerCase().includes(phrase) 
-        || item.firstname.toLowerCase().includes(phrase)
-        || item.phonenumber.includes(phrase)
+        // Basic Example
+        // return item.lastname.toLowerCase().includes(phrase) 
+        // || item.firstname.toLowerCase().includes(phrase)
+        // || item.phonenumber.includes(phrase)
+
+        // More advanced
+        return findByPhrase(columns, item as unknown as { [key: string]: string}, phrase);
     }
         );
     setFilteredData(data);
