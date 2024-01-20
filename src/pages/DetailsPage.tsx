@@ -3,6 +3,8 @@ import { Employee } from "./HomePage";
 
 export function DetailsPage() {
   const location = useLocation();
+
+  // TODO: Improve loading of employee in case it is not passed
   const data: Employee = location.state;
 
   return (

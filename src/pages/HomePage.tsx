@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./HomePage.css";
 import { Table } from "../components/Table";
+import { Link } from "react-router-dom";
 
 
 export interface Employee {
@@ -51,7 +52,12 @@ function HomePage() {
 
   return (
     <>
-        <h1>Employees</h1>
+        <header className="d-flex justify-content-between mb-2">
+          <h1>Employees</h1>
+          <Link className="btn btn-success" to={'add'}>Add</Link>
+        </header>
+        
+
         <Table data={data}></Table>
     </>
   );

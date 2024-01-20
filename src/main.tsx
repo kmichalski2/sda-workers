@@ -5,6 +5,7 @@ import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { DetailsPage } from "./pages/DetailsPage.tsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { AddPage } from "./pages/AddPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
     path: "/details",
     element: <DetailsPage />,
   },
+  {
+    path: "/add",
+    element: <AddPage />
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
