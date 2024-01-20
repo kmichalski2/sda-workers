@@ -35,7 +35,7 @@ export const mockData: Employee[] = [
   {
     id: '2',
     firstname: 'Adam',
-    lastname: 'Nowak',
+    lastname: 'Adamiec',
     salary: 10000,
     status: 'AVAILABLE',
     birthdate: new Date('1995-05-25'),

@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 
 export function Table(props: { data: Employee[] }) {
   const [filteredData, setFilteredData] = useState(props.data);
+  const [sortDirection, setSortDirection] = useState('none');
+
   const navigate = useNavigate();
   const renderStatus = (status: EmployeeStatus): string => {
     switch(status) {
@@ -52,6 +54,48 @@ export function Table(props: { data: Employee[] }) {
     setFilteredData(data);
   }
 
+  const sortAsc = (a: Employee, b: Employee, key: keyof Employee): number => {
+    if (a[key] > b[key]) {
+      return 1;
+    }
+
+    if (a[key] < b[key]) {
+      return -1;
+    }
+
+    return 0;
+  }
+
+  const sortDesc = (a: Employee, b: Employee, key: keyof Employee): number => {
+    if (a[key] < b[key]) {
+      return 1;
+    }
+
+    if (a[key] > b[key]) {
+      return -1;
+    }
+
+    return 0;
+  }
+
+  const handleHeaderColumnClick = (event: React.MouseEvent, key: keyof Employee): void => {
+      event.preventDefault();
+      let sortedData = [...filteredData];
+
+      if (sortDirection === 'none') {
+        setSortDirection('asc');
+        sortedData = sortedData.sort((a,b) => sortAsc(a, b, key)); 
+      } else if (sortDirection === 'asc') {
+        setSortDirection('desc');
+       sortedData = sortedData.sort((a, b) => sortDesc(a, b, key));
+      } else {
+        setSortDirection('none');
+        sortedData = props.data;
+      }
+
+      setFilteredData([...sortedData]);
+  }
+
   return (
     <>
       <div className="mb-3">
@@ -61,11 +105,11 @@ export function Table(props: { data: Employee[] }) {
       <table className="table table-striped">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Salary</th>
-            <th>Status</th>
+            <th className="clickable" onClick={(event) => handleHeaderColumnClick(event, "id")}>ID</th>
+            <th className="clickable" onClick={(event) => handleHeaderColumnClick(event, "firstname")}>Firstname</th>
+            <th className="clickable" onClick={(event) => handleHeaderColumnClick(event, "lastname")}>Lastname</th>
+            <th className="clickable" onClick={(event) => handleHeaderColumnClick(event, "salary")}>Salary</th>
+            <th className="clickable" onClick={(event) => handleHeaderColumnClick(event, "status")}>Status</th>
           </tr>
         </thead>
         <tbody>
