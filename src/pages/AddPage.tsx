@@ -1,11 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Employee, EmployeeStatus } from './HomePage';
 import { useState } from "react";
-
-export interface StatusOption {
-  label: string;
-  value: EmployeeStatus;
-}
+import { StatusOption } from "../models/StatusOption";
 
 export function AddPage() {
   const navigate = useNavigate();

@@ -1,16 +1,26 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { Employee } from "./HomePage";
+import { Employee, EmployeeStatus } from "./HomePage";
+import { StatusOption } from "../models/StatusOption";
+import { useState } from "react";
+import { employeesUrl } from "../config";
 
 export function EditPage() {
   const location = useLocation();
   const navigate = useNavigate();
-
-  // TODO: Improve loading of employee in case it is not passed
-  const data: Employee = location.state;
+   // TODO: Improve loading of employee in case it is not passed
+   const data: Employee = location.state;
+  const [statusOptions] = useState<StatusOption[]>([
+    { label: 'On leave', value: 'ON_LEAVE' },
+    { label: 'Hired', value: 'HIRED' },
+    { label: 'Fired', value: 'FIRED' }
+  ])
+  const [firstname, setFirstname] = useState(data.firstname);
+  const [formData, setFormData] = useState({...data});
+ 
 
   const makeEmployee = (formData: FormData): Employee => {
     return {
-      id: Date.now().toString(),
+      id: data.id,
       firstname: formData.get("firstname") as string,
       lastname: formData.get("lastname") as string,
       birthdate: new Date(formData.get("birthdate") as string),
@@ -19,7 +29,7 @@ export function EditPage() {
       city: formData.get("city") as string,
       postalcode: formData.get("postalcode") as string,
       salary: +(formData.get("salary") as string),
-      status: 'AVAILABLE'
+      status: formData.get("status") as EmployeeStatus
     }
   }
 
@@ -30,7 +40,27 @@ export function EditPage() {
     
     const newEmployee = makeEmployee(formData);
 
-    console.log(newEmployee);
+    fetch(employeesUrl + "/" + data.id, {
+      method: "PUT",
+      body: JSON.stringify(newEmployee)
+    }).then(response => {
+      if (response.ok) {
+        navigate("/");
+      } else {
+        console.warn("Something went wrong");
+      }
+    }).catch(err => console.error(err));
+  }
+
+  const handleInputChange = (event: React.ChangeEvent): void => {
+    const input = event.target as HTMLInputElement;
+    const value = input.value;
+    const key = input.name;
+
+    const newFormData = { ...formData } as any;
+    newFormData[key] = value;
+
+    setFormData({...newFormData})
   }
 
   return (
@@ -48,7 +78,8 @@ export function EditPage() {
               type="text"
               id="firstname"
               name="firstname"
-              value={data.firstname}
+              value={firstname}
+              onChange={handleInputChange}
             />
           </div>
           <div className="col">
@@ -60,7 +91,8 @@ export function EditPage() {
               type="text"
               id="lastname"
               name="lastname"
-              value={data.lastname}
+              value={formData.lastname}
+              onChange={handleInputChange}
             />
           </div>
           <div className="col">
@@ -69,10 +101,11 @@ export function EditPage() {
             </label>
             <input
               className="form-control"
-              type="date"
+              type="text"
               id="birthdate"
               name="birthdate"
-              value={data.birthdate.toDateString()}
+              value={formData.birthdate.toLocaleDateString()}
+              onChange={handleInputChange}
             />
           </div>
         </div>
@@ -86,7 +119,8 @@ export function EditPage() {
               type="text"
               id="phonenumber"
               name="phonenumber"
-              value={data.phonenumber}
+              value={formData.phonenumber}
+              onChange={handleInputChange}
             />
           </div>
         </div>
@@ -100,7 +134,8 @@ export function EditPage() {
               type="text"
               id="address"
               name="address"
-              value={data.address}
+              value={formData.address}
+              onChange={handleInputChange}
             />
           </div>
           <div className="col">
@@ -112,7 +147,8 @@ export function EditPage() {
               type="text"
               id="city"
               name="city"
-              value={data.city}
+              value={formData.city}
+              onChange={handleInputChange}
             />
           </div>
           <div className="col">
@@ -124,8 +160,22 @@ export function EditPage() {
               type="text"
               id="postalcode"
               name="postalcode"
-              value={data.postalcode}
+              value={formData.postalcode}
+              onChange={handleInputChange}
             />
+          </div>
+          <div className="col">
+            <label htmlFor="status" className="form-label">
+              Status
+            </label>
+            <select
+              className="form-control"
+              id="status"
+              name="status"
+              onChange={handleInputChange}
+            >
+              { statusOptions.map(item => <option value={item.value} selected={item.value === formData.status}>{item.label}</option>)}
+            </select>
           </div>
         </div>
 
@@ -142,17 +192,18 @@ export function EditPage() {
               value={data.salary}
             />
           </div>
-          {/* <div className="col">
+          <div className="col">
             <label htmlFor="status" className="form-label">
               Status
             </label>
-            <input
+            <select
               className="form-control"
-              type="text"
               id="status"
-              readOnly
-            />
-          </div> */}
+              name="status"
+            >
+              { statusOptions.map(item => <option value={item.value} selected={data.status === item.value}>{item.label}</option>)}
+            </select>
+          </div>
         </div>
 
         <footer>

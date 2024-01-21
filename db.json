@@ -2,15 +2,15 @@
   "employees": [
     {
       "id": "2",
-      "firstname": "Franek",
+      "firstname": "Kamil",
       "lastname": "Adamiec",
-      "salary": 10000,
-      "status": "AVAILABLE",
-      "birthdate": "1995-05-25T00:00:00.000Z",
+      "birthdate": "1969-12-31T23:00:00.000Z",
+      "phonenumber": "321321321",
       "address": "Katowicka 23",
-      "city": "Kraków",
+      "city": "Warszawa",
       "postalcode": "50-000",
-      "phonenumber": "321321321"
+      "salary": 10000,
+      "status": "ON_LEAVE"
     },
     {
       "id": "1705830219673",
@@ -22,30 +22,6 @@
       "city": "Katowice",
       "postalcode": "12-123",
       "salary": 232323,
-      "status": "AVAILABLE"
-    },
-    {
-      "id": "1705831117610",
-      "firstname": "Piotr",
-      "lastname": "Piotrowski",
-      "birthdate": "2000-11-10T23:00:00.000Z",
-      "phonenumber": "11111111",
-      "address": "Katowicka 1",
-      "city": "Katowice",
-      "postalcode": "11-111",
-      "salary": 10000,
-      "status": "AVAILABLE"
-    },
-    {
-      "id": "1705833706311",
-      "firstname": "",
-      "lastname": "",
-      "birthdate": null,
-      "phonenumber": "",
-      "address": "",
-      "city": "",
-      "postalcode": "",
-      "salary": 0,
       "status": "HIRED"
     }
   ]
