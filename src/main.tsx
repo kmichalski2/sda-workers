@@ -6,6 +6,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { DetailsPage } from "./pages/DetailsPage.tsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { AddPage } from "./pages/AddPage.tsx";
+import { EditPage } from './pages/EditPage';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "/add",
     element: <AddPage />
+  },
+  {
+    path: "/edit",
+    element: <EditPage />
   }
 ]);
 

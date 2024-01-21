@@ -1,6 +1,12 @@
+import { useLocation } from "react-router-dom";
 import { Employee } from "./HomePage";
 
-export function AddPage() {
+export function EditPage() {
+  const location = useLocation();
+
+  // TODO: Improve loading of employee in case it is not passed
+  const data: Employee = location.state;
+
   const makeEmployee = (formData: FormData): Employee => {
     return {
       id: Date.now().toString(),
@@ -28,7 +34,7 @@ export function AddPage() {
 
   return (
     <>
-      <h3>Add Employee</h3>
+      <h3>Edit Employee</h3>
 
       <form onSubmit={handleSubmit}>
         <div className="mb-3 row">
@@ -41,6 +47,7 @@ export function AddPage() {
               type="text"
               id="firstname"
               name="firstname"
+              value={data.firstname}
             />
           </div>
           <div className="col">
@@ -52,6 +59,7 @@ export function AddPage() {
               type="text"
               id="lastname"
               name="lastname"
+              value={data.lastname}
             />
           </div>
           <div className="col">
@@ -60,9 +68,10 @@ export function AddPage() {
             </label>
             <input
               className="form-control"
-              type="text"
+              type="date"
               id="birthdate"
               name="birthdate"
+              value={data.birthdate.toDateString()}
             />
           </div>
         </div>
@@ -76,6 +85,7 @@ export function AddPage() {
               type="text"
               id="phonenumber"
               name="phonenumber"
+              value={data.phonenumber}
             />
           </div>
         </div>
@@ -89,6 +99,7 @@ export function AddPage() {
               type="text"
               id="address"
               name="address"
+              value={data.address}
             />
           </div>
           <div className="col">
@@ -100,6 +111,7 @@ export function AddPage() {
               type="text"
               id="city"
               name="city"
+              value={data.city}
             />
           </div>
           <div className="col">
@@ -111,6 +123,7 @@ export function AddPage() {
               type="text"
               id="postalcode"
               name="postalcode"
+              value={data.postalcode}
             />
           </div>
         </div>
@@ -125,6 +138,7 @@ export function AddPage() {
               type="text"
               id="salary"
               name="salary"
+              value={data.salary}
             />
           </div>
           {/* <div className="col">
@@ -141,7 +155,7 @@ export function AddPage() {
         </div>
 
         <footer>
-          <button type="submit" className="btn btn-success">Add</button>
+          <button type="submit" className="btn btn-primary">Save</button>
         </footer>
       </form>
     </>

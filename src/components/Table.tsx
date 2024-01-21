@@ -26,6 +26,12 @@ export function Table(props: { data: Employee[] }) {
     navigate("/details", { state: item });
   }
 
+  const handleEditClick = (event: React.MouseEvent, item: Employee): void => {
+    event.preventDefault();
+
+    navigate("/edit", { state: item });
+  }
+
   const findByPhrase = (columns: string[], item: { [key: string]: string}, phrase: string): boolean => {
     let result = false;  
     columns.forEach(key => {
@@ -133,16 +139,21 @@ export function Table(props: { data: Employee[] }) {
             <th className="clickable" onClick={(event) => handleHeaderColumnClick(event, "lastname")}>Lastname {renderSortIcon("lastname")}</th>
             <th className="clickable" onClick={(event) => handleHeaderColumnClick(event, "salary")}>Salary {renderSortIcon("salary")}</th>
             <th className="clickable" onClick={(event) => handleHeaderColumnClick(event, "status")}>Status {renderSortIcon("status")}</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           {filteredData.map((item) => (
-            <tr className="clickable" key={item.id} onClick={(event) => handleRowClick(event, item)}>
+            <tr className="clickable" key={item.id}>
               <td>{item.id}</td>
               <td>{item.firstname}</td>
               <td>{item.lastname}</td>
               <td>{item.salary}</td>
               <td>{renderStatus(item.status)}</td>
+              <td>
+                <button className="btn btn-primary me-1" onClick={(event) => handleRowClick(event, item)}>Details</button>
+                <button className="btn btn-warning" onClick={(event) => handleEditClick(event, item)}>Edit</button>
+              </td>
             </tr>
           ))}
         </tbody>
