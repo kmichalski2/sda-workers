@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Employee, EmployeeStatus } from "../models/Employee";
 import { Modal } from "react-bootstrap";
 import { removeEmployee } from "../services/API";
+import { ConfirmModal } from "./Modal";
 
 export function Table(props: { data: Employee[] }) {
   const [filteredData, setFilteredData] = useState(props.data);
@@ -169,18 +170,12 @@ export function Table(props: { data: Employee[] }) {
 
   return (
     <>
-      <Modal show={showDeleteModal} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Delete confirmation</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Are you sure, you want to delete this employee?</Modal.Body>
-        <Modal.Footer>
-          <button className="btn" onClick={handleClose}>No</button>
-          <button className="btn btn-primary" onClick={handleDeleteConfirm}>
-            Yes
-          </button>
-        </Modal.Footer>
-      </Modal>
+      <ConfirmModal 
+        show={showDeleteModal} 
+        title="Delete confirmation" 
+        description="Are you sure, you want to delete this employee?" 
+        onConfirm={handleDeleteConfirm} 
+        onCancel={handleClose} />
 
       <div className="mb-3">
         <input

@@ -137,19 +137,6 @@ export function EditPage() {
               onChange={handleInputChange}
             />
           </div>
-          <div className="col">
-            <label htmlFor="status" className="form-label">
-              Status
-            </label>
-            <select
-              className="form-control"
-              id="status"
-              name="status"
-              onChange={handleInputChange}
-            >
-              { statusOptions.map(item => <option value={item.value} selected={item.value === formData.status}>{item.label}</option>)}
-            </select>
-          </div>
         </div>
 
         <div className="mb-3 row">
