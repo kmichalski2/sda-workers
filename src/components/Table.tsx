@@ -33,6 +33,12 @@ export function Table(props: { data: Employee[] }) {
     navigate("/edit", { state: item });
   };
 
+  const handleDeleteClick = (event: React.MouseEvent, id: string): void => {
+    event.preventDefault();
+
+    console.log("Delete Click");
+  };
+
   const findByPhrase = (
     columns: string[],
     item: { [key: string]: string },
@@ -192,18 +198,30 @@ export function Table(props: { data: Employee[] }) {
               <td>{item.salary}</td>
               <td className="text-center">{renderStatus(item.status)}</td>
               <td>
-                <button
-                  className="btn btn-primary me-1"
-                  onClick={(event) => handleRowClick(event, item)}
+                <div
+                  className="btn-group"
+                  role="group"
+                  aria-label="Employee actions"
                 >
-                  Details
-                </button>
-                <button
-                  className="btn btn-warning"
-                  onClick={(event) => handleEditClick(event, item)}
-                >
-                  Edit
-                </button>
+                  <button
+                    className="btn btn-primary"
+                    onClick={(event) => handleRowClick(event, item)}
+                  >
+                    Details
+                  </button>
+                  <button
+                    className="btn btn-warning"
+                    onClick={(event) => handleEditClick(event, item)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="btn btn-danger"
+                    onClick={(event) => handleDeleteClick(event, item.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
               </td>
             </tr>
           ))}
