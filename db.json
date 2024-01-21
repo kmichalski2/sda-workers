@@ -7,13 +7,13 @@
       "birthdate": "1969-12-31T23:00:00.000Z",
       "phonenumber": "321321321",
       "address": "Katowicka 23",
-      "city": "Warszawa",
+      "city": "Kraków",
       "postalcode": "50-000",
       "salary": 10000,
       "status": "ON_LEAVE"
     },
     {
-      "id": "1705830219673",
+      "id": "1",
       "firstname": "Kamil",
       "lastname": "Tester",
       "birthdate": "1212-12-11T22:36:00.000Z",

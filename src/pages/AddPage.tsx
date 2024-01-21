@@ -1,30 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { Employee, EmployeeStatus } from './HomePage';
 import { useState } from "react";
-import { StatusOption } from "../models/StatusOption";
+import { STATUS_OPTIONS, StatusOption } from "../models/StatusOption";
+import { makeEmployee } from "../services/Employee";
+import { createEmployee } from "../services/API";
 
 export function AddPage() {
   const navigate = useNavigate();
-  const [statusOptions] = useState<StatusOption[]>([
-    { label: 'On leave', value: 'ON_LEAVE' },
-    { label: 'Hired', value: 'HIRED' },
-    { label: 'Fired', value: 'FIRED' }
-  ])
-
-  const makeEmployee = (formData: FormData): Employee => {
-    return {
-      id: Date.now().toString(),
-      firstname: formData.get("firstname") as string,
-      lastname: formData.get("lastname") as string,
-      birthdate: new Date(formData.get("birthdate") as string),
-      phonenumber: formData.get("phonenumber") as string,
-      address: formData.get("address") as string,
-      city: formData.get("city") as string,
-      postalcode: formData.get("postalcode") as string,
-      salary: +(formData.get("salary") as string),
-      status: formData.get("status") as EmployeeStatus
-    }
-  }
+  const [statusOptions] = useState<StatusOption[]>(STATUS_OPTIONS)
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -33,16 +15,9 @@ export function AddPage() {
     
     const newEmployee = makeEmployee(formData);
 
-    fetch("http://localhost:3000/employees", {
-      method: "POST",
-      body: JSON.stringify(newEmployee)
-    }).then(response => {
-      if (response.status === 201) {
-        navigate('/');
-      } else {
-        console.warn('Coś poszło nie tak');
-      }
-    }).catch(err => console.error(err));
+    createEmployee(newEmployee).then(() => {
+      navigate("/");
+    }).catch(error => console.warn(error));
   }
 
   return (

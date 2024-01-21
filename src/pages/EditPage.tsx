@@ -1,37 +1,17 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { Employee, EmployeeStatus } from "./HomePage";
-import { StatusOption } from "../models/StatusOption";
+import { Employee } from "../models/Employee";
+import { STATUS_OPTIONS, StatusOption } from "../models/StatusOption";
 import { useState } from "react";
-import { employeesUrl } from "../config";
+import { makeEmployee } from "../services/Employee";
+import { updateEmployee } from "../services/API";
 
 export function EditPage() {
   const location = useLocation();
   const navigate = useNavigate();
    // TODO: Improve loading of employee in case it is not passed
    const data: Employee = location.state;
-  const [statusOptions] = useState<StatusOption[]>([
-    { label: 'On leave', value: 'ON_LEAVE' },
-    { label: 'Hired', value: 'HIRED' },
-    { label: 'Fired', value: 'FIRED' }
-  ])
-  const [firstname, setFirstname] = useState(data.firstname);
+  const [statusOptions] = useState<StatusOption[]>(STATUS_OPTIONS)
   const [formData, setFormData] = useState({...data});
- 
-
-  const makeEmployee = (formData: FormData): Employee => {
-    return {
-      id: data.id,
-      firstname: formData.get("firstname") as string,
-      lastname: formData.get("lastname") as string,
-      birthdate: new Date(formData.get("birthdate") as string),
-      phonenumber: formData.get("phonenumber") as string,
-      address: formData.get("address") as string,
-      city: formData.get("city") as string,
-      postalcode: formData.get("postalcode") as string,
-      salary: +(formData.get("salary") as string),
-      status: formData.get("status") as EmployeeStatus
-    }
-  }
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -40,15 +20,8 @@ export function EditPage() {
     
     const newEmployee = makeEmployee(formData);
 
-    fetch(employeesUrl + "/" + data.id, {
-      method: "PUT",
-      body: JSON.stringify(newEmployee)
-    }).then(response => {
-      if (response.ok) {
-        navigate("/");
-      } else {
-        console.warn("Something went wrong");
-      }
+    updateEmployee(data.id, newEmployee).then(() => {
+      navigate("/");
     }).catch(err => console.error(err));
   }
 
@@ -78,7 +51,7 @@ export function EditPage() {
               type="text"
               id="firstname"
               name="firstname"
-              value={firstname}
+              value={formData.firstname}
               onChange={handleInputChange}
             />
           </div>

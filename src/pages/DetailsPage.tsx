@@ -1,20 +1,12 @@
 import { useLocation } from "react-router-dom";
-import { Employee } from "./HomePage";
+import { Employee } from "../models/Employee";
+import { formatDate } from "../services/Date";
 
 export function DetailsPage() {
   const location = useLocation();
 
   // TODO: Improve loading of employee in case it is not passed
   const data: Employee = location.state;
-
-  const formatDate = (date: Date): string => {
-    const month = date.getMonth() + 1;
-    const formatedMonth = month < 10 ? "0" + month : month;
-    const day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-
-    return date.getFullYear() + '-' + formatedMonth + '-' + day;
-  }
-
   return (
     <>
       <h3>Details</h3>

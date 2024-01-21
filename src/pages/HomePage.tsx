@@ -2,21 +2,7 @@ import { useEffect, useState } from "react";
 import "./HomePage.css";
 import { Table } from "../components/Table";
 import { Link } from "react-router-dom";
-
-
-export interface Employee {
-  id: string;
-  firstname: string;
-  lastname: string;
-  salary: number;
-  status: EmployeeStatus;
-  birthdate: Date;
-  address: string;
-  city: string;
-  postalcode: string;
-  phonenumber: string;
-}
-
+import { Employee, EmployeeStatus } from "../models/Employee";
 
 // DTO - Data Transfer Object
 export interface EmployeeDTO {
@@ -31,8 +17,6 @@ export interface EmployeeDTO {
   postalcode: string;
   phonenumber: string;
 }
-
-export type EmployeeStatus = 'ON_LEAVE' | 'HIRED' | 'FIRED';
 
 function HomePage() {
   const [data, setData] = useState<Employee[]>([]);
@@ -56,7 +40,7 @@ function HomePage() {
 
   return (
     <>
-        <header className="d-flex justify-content-between mb-2">
+        <header className="d-flex justify-content-between align-items-center mb-2">
           <h1>Employees</h1>
           <Link className="btn btn-success" to={'add'}>Add</Link>
         </header>
