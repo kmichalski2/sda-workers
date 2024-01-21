@@ -35,6 +35,18 @@
       "postalcode": "11-111",
       "salary": 10000,
       "status": "AVAILABLE"
+    },
+    {
+      "id": "1705833706311",
+      "firstname": "",
+      "lastname": "",
+      "birthdate": null,
+      "phonenumber": "",
+      "address": "",
+      "city": "",
+      "postalcode": "",
+      "salary": 0,
+      "status": "HIRED"
     }
   ]
 }

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import "./HomePage.css";
 import { Table } from "../components/Table";
 import { Link } from "react-router-dom";
@@ -32,7 +32,7 @@ export interface EmployeeDTO {
   phonenumber: string;
 }
 
-export type EmployeeStatus = 'SICK_LEAVE' | 'AVAILABLE';
+export type EmployeeStatus = 'ON_LEAVE' | 'HIRED' | 'FIRED';
 
 function HomePage() {
   const [data, setData] = useState<Employee[]>([]);

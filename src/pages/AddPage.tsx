@@ -1,8 +1,20 @@
 import { useNavigate } from "react-router-dom";
-import { Employee } from "./HomePage";
+import { Employee, EmployeeStatus } from './HomePage';
+import { useState } from "react";
+
+export interface StatusOption {
+  label: string;
+  value: EmployeeStatus;
+}
 
 export function AddPage() {
   const navigate = useNavigate();
+  const [statusOptions] = useState<StatusOption[]>([
+    { label: 'On leave', value: 'ON_LEAVE' },
+    { label: 'Hired', value: 'HIRED' },
+    { label: 'Fired', value: 'FIRED' }
+  ])
+
   const makeEmployee = (formData: FormData): Employee => {
     return {
       id: Date.now().toString(),
@@ -14,7 +26,7 @@ export function AddPage() {
       city: formData.get("city") as string,
       postalcode: formData.get("postalcode") as string,
       salary: +(formData.get("salary") as string),
-      status: 'AVAILABLE'
+      status: formData.get("status") as EmployeeStatus
     }
   }
 
@@ -138,17 +150,18 @@ export function AddPage() {
               name="salary"
             />
           </div>
-          {/* <div className="col">
+          <div className="col">
             <label htmlFor="status" className="form-label">
               Status
             </label>
-            <input
+            <select
               className="form-control"
-              type="text"
               id="status"
-              readOnly
-            />
-          </div> */}
+              name="status"
+            >
+              { statusOptions.map(item => <option value={item.value}>{item.label}</option>)}
+            </select>
+          </div>
         </div>
 
         <footer>
