@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./HomePage.css";
 import { Table } from "../components/Table";
 import { Link } from "react-router-dom";
@@ -19,36 +19,16 @@ export interface Employee {
 
 export type EmployeeStatus = 'SICK_LEAVE' | 'AVAILABLE';
 
-
-export const mockData: Employee[] = [
-  {
-    id: '1',
-    firstname: 'Jan',
-    lastname: 'Kowalski',
-    salary: 5000,
-    status: 'SICK_LEAVE',
-    birthdate: new Date('1990-01-01'),
-    address: 'Warszawska 12',
-    city: 'Wrocław',
-    postalcode: '30-130',
-    phonenumber: '123123123'
-  },
-  {
-    id: '2',
-    firstname: 'Adam',
-    lastname: 'Adamiec',
-    salary: 10000,
-    status: 'AVAILABLE',
-    birthdate: new Date('1995-05-25'),
-    address: 'Katowicka 23',
-    city: 'Kraków',
-    postalcode: '50-000',
-    phonenumber: '321321321'
-  }
-]
-
 function HomePage() {
-  const [data] = useState(mockData);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3000/employees')
+    .then(response => response.json())
+    .then(employees => {
+      setData(employees);
+    })
+  }, [setData]);
 
   return (
     <>
@@ -58,7 +38,7 @@ function HomePage() {
         </header>
         
 
-        <Table data={data}></Table>
+        { data.length > 0 ? <Table data={data}></Table> : ''}
     </>
   );
 }

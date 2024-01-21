@@ -1,0 +1,28 @@
+{
+    "employees": [
+        {
+          "id": "1",
+          "firstname": "Jan",
+          "lastname": "Kowalski",
+          "salary": 5000,
+          "status": "SICK_LEAVE",
+          "birthdate": "1990-01-01T00:00:00.000Z",
+          "address": "Warszawska 12",
+          "city": "Wrocław",
+          "postalcode": "30-130",
+          "phonenumber": "123123123"
+        },
+        {
+          "id": "2",
+          "firstname": "Adam",
+          "lastname": "Adamiec",
+          "salary": 10000,
+          "status": "AVAILABLE",
+          "birthdate": "1995-05-25T00:00:00.000Z",
+          "address": "Katowicka 23",
+          "city": "Kraków",
+          "postalcode": "50-000",
+          "phonenumber": "321321321"
+        }
+      ]
+}
