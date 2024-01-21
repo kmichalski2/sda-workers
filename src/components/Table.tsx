@@ -2,12 +2,14 @@ import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { Employee, EmployeeStatus } from "../models/Employee";
 import { Modal } from "react-bootstrap";
+import { removeEmployee } from "../services/API";
 
 export function Table(props: { data: Employee[] }) {
   const [filteredData, setFilteredData] = useState(props.data);
   const [sortDirection, setSortDirection] = useState("none");
   const [sortBy, setSortBy] = useState<null | keyof Employee>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selected, setSelected] = useState<string | null>(null);
 
   const navigate = useNavigate();
   const renderStatus = (status: EmployeeStatus): string => {
@@ -38,6 +40,7 @@ export function Table(props: { data: Employee[] }) {
   const handleDeleteClick = (event: React.MouseEvent, id: string): void => {
     event.preventDefault();
 
+    setSelected(id);
     setShowDeleteModal(true);
   };
 
@@ -146,6 +149,22 @@ export function Table(props: { data: Employee[] }) {
 
   const handleClose = (): void => {
     setShowDeleteModal(false);
+    setSelected(null);
+  }
+
+  const handleDeleteConfirm = (): void => {
+    const id = selected;
+
+    if (id) {
+      removeEmployee(id).then(() => {
+        const data = [...props.data].filter(item => item.id !== id);
+        setFilteredData(data);
+
+        handleClose();
+      }).catch(error => console.warn(error));
+    } else {
+      console.warn('No selected employee');
+    }
   }
 
   return (
@@ -157,7 +176,7 @@ export function Table(props: { data: Employee[] }) {
         <Modal.Body>Are you sure, you want to delete this employee?</Modal.Body>
         <Modal.Footer>
           <button className="btn" onClick={handleClose}>No</button>
-          <button className="btn btn-primary" onClick={handleClose}>
+          <button className="btn btn-primary" onClick={handleDeleteConfirm}>
             Yes
           </button>
         </Modal.Footer>

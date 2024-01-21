@@ -26,3 +26,15 @@ export const updateEmployee = (id: string, employeeData: Omit<Employee, "id">): 
         }
       })
 }
+
+export const removeEmployee = (id: string): Promise<Employee | never> => {
+  return fetch(employeesUrl + "/" + id, {
+    method: "DELETE"
+  }).then(response => {
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error("Something went wrong.");
+    }
+  })
+}
