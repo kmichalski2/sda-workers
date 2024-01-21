@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import { Employee } from "./HomePage";
 
 export function AddPage() {
+  const navigate = useNavigate();
   const makeEmployee = (formData: FormData): Employee => {
     return {
       id: Date.now().toString(),
@@ -23,7 +25,16 @@ export function AddPage() {
     
     const newEmployee = makeEmployee(formData);
 
-    console.log(newEmployee);
+    fetch("http://localhost:3000/employees", {
+      method: "POST",
+      body: JSON.stringify(newEmployee)
+    }).then(response => {
+      if (response.status === 201) {
+        navigate('/');
+      } else {
+        console.warn('Coś poszło nie tak');
+      }
+    }).catch(err => console.error(err));
   }
 
   return (

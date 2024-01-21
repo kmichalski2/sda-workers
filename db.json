@@ -1,28 +1,40 @@
 {
-    "employees": [
-        {
-          "id": "1",
-          "firstname": "Jan",
-          "lastname": "Kowalski",
-          "salary": 5000,
-          "status": "SICK_LEAVE",
-          "birthdate": "1990-01-01T00:00:00.000Z",
-          "address": "Warszawska 12",
-          "city": "Wrocław",
-          "postalcode": "30-130",
-          "phonenumber": "123123123"
-        },
-        {
-          "id": "2",
-          "firstname": "Adam",
-          "lastname": "Adamiec",
-          "salary": 10000,
-          "status": "AVAILABLE",
-          "birthdate": "1995-05-25T00:00:00.000Z",
-          "address": "Katowicka 23",
-          "city": "Kraków",
-          "postalcode": "50-000",
-          "phonenumber": "321321321"
-        }
-      ]
+  "employees": [
+    {
+      "id": "2",
+      "firstname": "Franek",
+      "lastname": "Adamiec",
+      "salary": 10000,
+      "status": "AVAILABLE",
+      "birthdate": "1995-05-25T00:00:00.000Z",
+      "address": "Katowicka 23",
+      "city": "Kraków",
+      "postalcode": "50-000",
+      "phonenumber": "321321321"
+    },
+    {
+      "id": "1705830219673",
+      "firstname": "Kamil",
+      "lastname": "Tester",
+      "birthdate": "1212-12-11T22:36:00.000Z",
+      "phonenumber": "12312323",
+      "address": "Katowicka 23",
+      "city": "Katowice",
+      "postalcode": "12-123",
+      "salary": 232323,
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "1705831117610",
+      "firstname": "Piotr",
+      "lastname": "Piotrowski",
+      "birthdate": "2000-11-10T23:00:00.000Z",
+      "phonenumber": "11111111",
+      "address": "Katowicka 1",
+      "city": "Katowice",
+      "postalcode": "11-111",
+      "salary": 10000,
+      "status": "AVAILABLE"
+    }
+  ]
 }
