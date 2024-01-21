@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { Employee, EmployeeStatus } from "../models/Employee";
+import { Modal } from "react-bootstrap";
 
 export function Table(props: { data: Employee[] }) {
   const [filteredData, setFilteredData] = useState(props.data);
   const [sortDirection, setSortDirection] = useState("none");
   const [sortBy, setSortBy] = useState<null | keyof Employee>(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const navigate = useNavigate();
   const renderStatus = (status: EmployeeStatus): string => {
@@ -36,7 +38,7 @@ export function Table(props: { data: Employee[] }) {
   const handleDeleteClick = (event: React.MouseEvent, id: string): void => {
     event.preventDefault();
 
-    console.log("Delete Click");
+    setShowDeleteModal(true);
   };
 
   const findByPhrase = (
@@ -142,8 +144,25 @@ export function Table(props: { data: Employee[] }) {
     return "";
   };
 
+  const handleClose = (): void => {
+    setShowDeleteModal(false);
+  }
+
   return (
     <>
+      <Modal show={showDeleteModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete confirmation</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure, you want to delete this employee?</Modal.Body>
+        <Modal.Footer>
+          <button className="btn" onClick={handleClose}>No</button>
+          <button className="btn btn-primary" onClick={handleClose}>
+            Yes
+          </button>
+        </Modal.Footer>
+      </Modal>
+
       <div className="mb-3">
         <input
           onKeyUp={handleSearchType}
