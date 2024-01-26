@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { Employee, EmployeeStatus } from "../models/Employee";
-import { Modal } from "react-bootstrap";
 import { removeEmployee } from "../services/API";
 import { ConfirmModal } from "./Modal";
 
