@@ -186,82 +186,82 @@ export function Table(props: { data: Employee[] }) {
           className="form-control"
         />
       </div>
-
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th
-              className="clickable"
-              onClick={(event) => handleHeaderColumnClick(event, "id")}
-            >
-              ID {renderSortIcon("id")}
-            </th>
-            <th
-              className="clickable"
-              onClick={(event) => handleHeaderColumnClick(event, "firstname")}
-            >
-              {t("firstname")} {renderSortIcon("firstname")}
-            </th>
-            <th
-              className="clickable"
-              onClick={(event) => handleHeaderColumnClick(event, "lastname")}
-            >
-              <Trans>lastname</Trans> {renderSortIcon("lastname")}
-            </th>
-            <th
-              className="clickable"
-              onClick={(event) => handleHeaderColumnClick(event, "salary")}
-            >
-              {t("salary")} {renderSortIcon("salary")}
-            </th>
-            <th
-              className="clickable text-center"
-              onClick={(event) => handleHeaderColumnClick(event, "status")}
-            >
-              {t("status")} {renderSortIcon("status")}
-            </th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredData.map((item) => (
-            <tr className="align-middle" key={item.id}>
-              <td>{item.id}</td>
-              <td>{item.firstname}</td>
-              <td>{item.lastname}</td>
-              <td>{item.salary}</td>
-              <td className="text-center">{renderStatus(item.status)}</td>
-              <td>
-                <div
-                  className="btn-group"
-                  role="group"
-                  aria-label="Employee actions"
-                >
-                  <button
-                    className="btn btn-primary"
-                    onClick={(event) => handleRowClick(event, item)}
-                  >
-                    {t("details")}
-                  </button>
-                  <button
-                    className="btn btn-warning"
-                    onClick={(event) => handleEditClick(event, item)}
-                  >
-                    {t("edit")}
-                  </button>
-                  <button
-                    className="btn btn-danger"
-                    onClick={(event) => handleDeleteClick(event, item.id)}
-                  >
-                    {t("delete")}
-                  </button>
-                </div>
-              </td>
+      <div className="table-responsive">
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th
+                className="clickable"
+                onClick={(event) => handleHeaderColumnClick(event, "id")}
+              >
+                ID {renderSortIcon("id")}
+              </th>
+              <th
+                className="clickable"
+                onClick={(event) => handleHeaderColumnClick(event, "firstname")}
+              >
+                {t("firstname")} {renderSortIcon("firstname")}
+              </th>
+              <th
+                className="clickable"
+                onClick={(event) => handleHeaderColumnClick(event, "lastname")}
+              >
+                <Trans>lastname</Trans> {renderSortIcon("lastname")}
+              </th>
+              <th
+                className="clickable"
+                onClick={(event) => handleHeaderColumnClick(event, "salary")}
+              >
+                {t("salary")} {renderSortIcon("salary")}
+              </th>
+              <th
+                className="clickable text-center"
+                onClick={(event) => handleHeaderColumnClick(event, "status")}
+              >
+                {t("status")} {renderSortIcon("status")}
+              </th>
+              <th></th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      
+          </thead>
+          <tbody>
+            {filteredData.map((item) => (
+              <tr className="align-middle" key={item.id}>
+                <td>{item.id}</td>
+                <td>{item.firstname}</td>
+                <td>{item.lastname}</td>
+                <td>{item.salary}</td>
+                <td className="text-center">{renderStatus(item.status)}</td>
+                <td>
+                  <div
+                    className="btn-group"
+                    role="group"
+                    aria-label="Employee actions"
+                  >
+                    <button
+                      className="btn btn-primary"
+                      onClick={(event) => handleRowClick(event, item)}
+                    >
+                      {t("details")}
+                    </button>
+                    <button
+                      className="btn btn-warning"
+                      onClick={(event) => handleEditClick(event, item)}
+                    >
+                      {t("edit")}
+                    </button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={(event) => handleDeleteClick(event, item.id)}
+                    >
+                      {t("delete")}
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <p>{t("employee_results", { count: filteredData.length })}</p>
     </>
   );

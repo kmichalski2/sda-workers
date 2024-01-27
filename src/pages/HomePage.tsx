@@ -43,13 +43,12 @@ function HomePage() {
 
   return (
     <>
-        <header className="d-flex justify-content-between align-items-center mb-2">
+        <header className="d-flex flex-column flex-md-row  justify-content-between align-items-stretch align-items-md-center mb-5 mb-md-2">
           <h1>{ t("employees") }</h1>
           <div className="d-flex gap-2">
-            <Link className="btn btn-success" to={'add'}>{t("add")}</Link>
+            <Link className="btn btn-success flex-grow-1" to={'add'}>{t("add")}</Link>
             <LanguageSelector></LanguageSelector>
           </div>
-          
         </header>
 
         { data.length > 0 ? <Table data={data}></Table> : ''}

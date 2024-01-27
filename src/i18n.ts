@@ -58,7 +58,8 @@ const resources = {
             "edit_page_title": "Edycja danych",
             "save": "Zapisz",
             "employee_results_one": "Znaleziono {{count}} pracownika",
-            "employee_results_other": "Znaleziono {{count}} pracowników",
+            "employee_results_few": "Znaleziono {{count}} pracowników",
+            "employee_results_many": "Znaleziono {{count}} pracowników",
         },
     }
 }
@@ -67,7 +68,9 @@ i18n
     .use(LanguageDetector)
     .use(initReactI18next).init({
         resources,
-        fallbackLng: "en"
+        lng: "pl",
+        fallbackLng: "en",
+        debug: true
     })
 
 export default i18n;
