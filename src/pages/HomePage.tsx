@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Employee, EmployeeStatus } from "../models/Employee";
 import { useTranslation } from "react-i18next";
 import { LanguageSelector } from "../components/LangaugeSelector";
+import { employeesUrl } from "../config";
 
 // DTO - Data Transfer Object
 export interface EmployeeDTO {
@@ -25,7 +26,7 @@ function HomePage() {
   const { t } = useTranslation();
 
   useEffect(() => {
-    fetch('http://localhost:3000/employees')
+    fetch(employeesUrl)
     .then(response => response.json())
     .then((employees: EmployeeDTO[]) => {
       

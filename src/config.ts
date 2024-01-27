@@ -1,2 +1,2 @@
-export const baseUrl = "http://localhost:3000";
-export const employeesUrl = baseUrl + "/employees";
+export const baseUrl = "https://65b42955770d43aba47afb50.mockapi.io";
+export const employeesUrl = baseUrl + "/employee";
