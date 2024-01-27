@@ -7,6 +7,7 @@ import { DetailsPage } from "./pages/DetailsPage.tsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { AddPage } from "./pages/AddPage.tsx";
 import { EditPage } from './pages/EditPage';
+import "./i18n";
 
 const router = createBrowserRouter([
   {

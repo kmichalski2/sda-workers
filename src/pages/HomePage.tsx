@@ -3,6 +3,8 @@ import "./HomePage.css";
 import { Table } from "../components/Table";
 import { Link } from "react-router-dom";
 import { Employee, EmployeeStatus } from "../models/Employee";
+import { useTranslation } from "react-i18next";
+import { LanguageSelector } from "../components/LangaugeSelector";
 
 // DTO - Data Transfer Object
 export interface EmployeeDTO {
@@ -20,6 +22,7 @@ export interface EmployeeDTO {
 
 function HomePage() {
   const [data, setData] = useState<Employee[]>([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetch('http://localhost:3000/employees')
@@ -41,8 +44,12 @@ function HomePage() {
   return (
     <>
         <header className="d-flex justify-content-between align-items-center mb-2">
-          <h1>Employees</h1>
-          <Link className="btn btn-success" to={'add'}>Add</Link>
+          <h1>{ t("employees") }</h1>
+          <div className="d-flex gap-2">
+            <Link className="btn btn-success" to={'add'}>{t("add")}</Link>
+            <LanguageSelector></LanguageSelector>
+          </div>
+          
         </header>
 
         { data.length > 0 ? <Table data={data}></Table> : ''}

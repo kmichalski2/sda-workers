@@ -3,8 +3,10 @@ import React, { useState } from "react";
 import { Employee, EmployeeStatus } from "../models/Employee";
 import { removeEmployee } from "../services/API";
 import { ConfirmModal } from "./Modal";
+import { Trans, useTranslation } from "react-i18next";
 
 export function Table(props: { data: Employee[] }) {
+  const { t } = useTranslation();
   const [filteredData, setFilteredData] = useState(props.data);
   const [sortDirection, setSortDirection] = useState("none");
   const [sortBy, setSortBy] = useState<null | keyof Employee>(null);
@@ -171,15 +173,15 @@ export function Table(props: { data: Employee[] }) {
     <>
       <ConfirmModal 
         show={showDeleteModal} 
-        title="Delete confirmation" 
-        description="Are you sure, you want to delete this employee?" 
+        title={t("delete_modal_title")}
+        description={t("delete_modal_text")} 
         onConfirm={handleDeleteConfirm} 
         onCancel={handleClose} />
 
       <div className="mb-3">
         <input
           onKeyUp={handleSearchType}
-          placeholder="Type any employee data..."
+          placeholder={t("search_placeholder")}
           type="search"
           className="form-control"
         />
@@ -198,25 +200,25 @@ export function Table(props: { data: Employee[] }) {
               className="clickable"
               onClick={(event) => handleHeaderColumnClick(event, "firstname")}
             >
-              Firstname {renderSortIcon("firstname")}
+              {t("firstname")} {renderSortIcon("firstname")}
             </th>
             <th
               className="clickable"
               onClick={(event) => handleHeaderColumnClick(event, "lastname")}
             >
-              Lastname {renderSortIcon("lastname")}
+              <Trans>lastname</Trans> {renderSortIcon("lastname")}
             </th>
             <th
               className="clickable"
               onClick={(event) => handleHeaderColumnClick(event, "salary")}
             >
-              Salary {renderSortIcon("salary")}
+              {t("salary")} {renderSortIcon("salary")}
             </th>
             <th
               className="clickable text-center"
               onClick={(event) => handleHeaderColumnClick(event, "status")}
             >
-              Status {renderSortIcon("status")}
+              {t("status")} {renderSortIcon("status")}
             </th>
             <th></th>
           </tr>
@@ -239,19 +241,19 @@ export function Table(props: { data: Employee[] }) {
                     className="btn btn-primary"
                     onClick={(event) => handleRowClick(event, item)}
                   >
-                    Details
+                    {t("details")}
                   </button>
                   <button
                     className="btn btn-warning"
                     onClick={(event) => handleEditClick(event, item)}
                   >
-                    Edit
+                    {t("edit")}
                   </button>
                   <button
                     className="btn btn-danger"
                     onClick={(event) => handleDeleteClick(event, item.id)}
                   >
-                    Delete
+                    {t("delete")}
                   </button>
                 </div>
               </td>
@@ -259,6 +261,8 @@ export function Table(props: { data: Employee[] }) {
           ))}
         </tbody>
       </table>
+      
+      <p>{t("employee_results", { count: filteredData.length })}</p>
     </>
   );
 }

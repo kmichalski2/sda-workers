@@ -3,32 +3,36 @@ import { useState } from "react";
 import { STATUS_OPTIONS, StatusOption } from "../models/StatusOption";
 import { makeEmployee } from "../services/Employee";
 import { createEmployee } from "../services/API";
+import { useTranslation } from "react-i18next";
 
 export function AddPage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
-  const [statusOptions] = useState<StatusOption[]>(STATUS_OPTIONS)
+  const [statusOptions] = useState<StatusOption[]>(STATUS_OPTIONS);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
     const formData = new FormData(form);
-    
+
     const newEmployee = makeEmployee(formData);
 
-    createEmployee(newEmployee).then(() => {
-      navigate("/");
-    }).catch(error => console.warn(error));
-  }
+    createEmployee(newEmployee)
+      .then(() => {
+        navigate("/");
+      })
+      .catch((error) => console.warn(error));
+  };
 
   return (
     <>
-      <h3>Add Employee</h3>
+      <h3>{t("add_page_title")}</h3>
 
       <form onSubmit={handleSubmit}>
         <div className="mb-3 row">
           <div className="col">
             <label htmlFor="firstname" className="form-label">
-              Firstame
+              {t("firstname")}
             </label>
             <input
               className="form-control"
@@ -39,7 +43,7 @@ export function AddPage() {
           </div>
           <div className="col">
             <label htmlFor="lastname" className="form-label">
-              Lastname
+              {t("lastname")}
             </label>
             <input
               className="form-control"
@@ -50,7 +54,7 @@ export function AddPage() {
           </div>
           <div className="col">
             <label htmlFor="birthdate" className="form-label">
-              Birthdate
+              {t("birthdate")}
             </label>
             <input
               className="form-control"
@@ -63,7 +67,7 @@ export function AddPage() {
         <div className="row mb-3">
           <div className="col">
             <label htmlFor="phonenumber" className="form-label">
-              Phone number
+              {t("phonenumber")}
             </label>
             <input
               className="form-control"
@@ -76,7 +80,7 @@ export function AddPage() {
         <div className="row mb-3">
           <div className="col">
             <label htmlFor="address" className="form-label">
-              Address
+              {t("address")}
             </label>
             <input
               className="form-control"
@@ -87,18 +91,13 @@ export function AddPage() {
           </div>
           <div className="col">
             <label htmlFor="city" className="form-label">
-              City
+              {t("city")}
             </label>
-            <input
-              className="form-control"
-              type="text"
-              id="city"
-              name="city"
-            />
+            <input className="form-control" type="text" id="city" name="city" />
           </div>
           <div className="col">
             <label htmlFor="postalcode" className="form-label">
-              Postal code
+              {t("postalcode")}
             </label>
             <input
               className="form-control"
@@ -112,7 +111,7 @@ export function AddPage() {
         <div className="mb-3 row">
           <div className="col">
             <label htmlFor="salary" className="form-label">
-              Salary
+              {t("salary")}
             </label>
             <input
               className="form-control"
@@ -123,20 +122,20 @@ export function AddPage() {
           </div>
           <div className="col">
             <label htmlFor="status" className="form-label">
-              Status
+              {t("status")}
             </label>
-            <select
-              className="form-control"
-              id="status"
-              name="status"
-            >
-              { statusOptions.map(item => <option value={item.value}>{item.label}</option>)}
+            <select className="form-control" id="status" name="status">
+              {statusOptions.map((item) => (
+                <option value={item.value}>{item.label}</option>
+              ))}
             </select>
           </div>
         </div>
 
         <footer>
-          <button type="submit" className="btn btn-success">Add</button>
+          <button type="submit" className="btn btn-success">
+            {t("add")}
+          </button>
         </footer>
       </form>
     </>

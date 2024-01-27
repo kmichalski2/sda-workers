@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 export function ConfirmModal(props: {
   show: boolean;
   title: string;
@@ -5,6 +7,8 @@ export function ConfirmModal(props: {
   onConfirm: () => void;
   onCancel: () => void;
 }) {
+  const { t } = useTranslation();
+
   return (
     <>
       <div
@@ -28,9 +32,9 @@ export function ConfirmModal(props: {
             </div>
             <div className="modal-body">{props.description}</div>
             <div className="modal-footer">
-            <button className="btn" onClick={props.onCancel}>No</button>
+            <button className="btn" onClick={props.onCancel}>{t("no")}</button>
              <button className="btn btn-primary" onClick={props.onConfirm}>
-            Yes
+            {t("yes")}
           </button>
             </div>
           </div>

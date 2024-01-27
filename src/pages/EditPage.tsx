@@ -4,8 +4,10 @@ import { STATUS_OPTIONS, StatusOption } from "../models/StatusOption";
 import { useState } from "react";
 import { makeEmployee } from "../services/Employee";
 import { updateEmployee } from "../services/API";
+import { useTranslation } from "react-i18next";
 
 export function EditPage() {
+  const { t }= useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
    // TODO: Improve loading of employee in case it is not passed
@@ -38,13 +40,13 @@ export function EditPage() {
 
   return (
     <>
-      <h3>Edit Employee</h3>
+      <h3>{t("edit_page_title")}</h3>
 
       <form onSubmit={handleSubmit}>
         <div className="mb-3 row">
           <div className="col">
             <label htmlFor="firstname" className="form-label">
-              Firstame
+              {t("firstname")}
             </label>
             <input
               className="form-control"
@@ -57,7 +59,7 @@ export function EditPage() {
           </div>
           <div className="col">
             <label htmlFor="lastname" className="form-label">
-              Lastname
+            {t("lastname")}
             </label>
             <input
               className="form-control"
@@ -70,7 +72,7 @@ export function EditPage() {
           </div>
           <div className="col">
             <label htmlFor="birthdate" className="form-label">
-              Birthdate
+            {t("birthdate")}
             </label>
             <input
               className="form-control"
@@ -85,7 +87,7 @@ export function EditPage() {
         <div className="row mb-3">
           <div className="col">
             <label htmlFor="phonenumber" className="form-label">
-              Phone number
+            {t("phonenumber")}
             </label>
             <input
               className="form-control"
@@ -100,7 +102,7 @@ export function EditPage() {
         <div className="row mb-3">
           <div className="col">
             <label htmlFor="address" className="form-label">
-              Address
+            {t("address")}
             </label>
             <input
               className="form-control"
@@ -113,7 +115,7 @@ export function EditPage() {
           </div>
           <div className="col">
             <label htmlFor="city" className="form-label">
-              City
+            {t("city")}
             </label>
             <input
               className="form-control"
@@ -126,7 +128,7 @@ export function EditPage() {
           </div>
           <div className="col">
             <label htmlFor="postalcode" className="form-label">
-              Postal code
+            {t("postalcode")}
             </label>
             <input
               className="form-control"
@@ -142,7 +144,7 @@ export function EditPage() {
         <div className="mb-3 row">
           <div className="col">
             <label htmlFor="salary" className="form-label">
-              Salary
+            {t("salary")}
             </label>
             <input
               className="form-control"
@@ -154,7 +156,7 @@ export function EditPage() {
           </div>
           <div className="col">
             <label htmlFor="status" className="form-label">
-              Status
+            {t("status")}
             </label>
             <select
               className="form-control"
@@ -167,7 +169,7 @@ export function EditPage() {
         </div>
 
         <footer>
-          <button type="submit" className="btn btn-primary">Save</button>
+          <button type="submit" className="btn btn-primary">{t("save")}</button>
         </footer>
       </form>
     </>
