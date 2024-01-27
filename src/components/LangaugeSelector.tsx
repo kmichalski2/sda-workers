@@ -17,7 +17,7 @@ export function LanguageSelector() {
 
     return (
         <>
-            <select className="form-control flex-grow-1 w-auto" onChange={handleLanguageChange}>
+            <select className="form-control flex-grow-1 w-auto" onChange={handleLanguageChange} data-testid="language-selector">
                 {langs.map(lang => <option key={lang.code} value={lang.code} selected={lang.code === i18n.language}>{lang.label}</option>)}
             </select>
         </>
